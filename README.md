@@ -7,7 +7,7 @@ FwdSh3ll
 
 **FwdSh3ll** is a tiny open source framework for crafting *forward shells*. What is a forward shell? Have you ever been caught in a situation when performing a pentest you discover an RCE vulnerability in a web app but despite that you can't get a reverse shell no matter how hard you try due to strictly filtered outbound traffic? A forward shell is a scheme of shell interacting with a vulnerable Linux machine based on the **named pipes** mechanism. Check the description for details!
 
-> LEGAL DISCLAIMER. FwdSh3ll was written for use in educational purposes only. Using this tool for attacking web servers without prior mutual consistency can be considered as an illegal activity. It is the final user's responsibility to obey all applicable local, state and federal laws. The author assume no liability and is not responsible for any misuse or damage caused by this tool.
+> LEGAL DISCLAIMER: FwdSh3ll was written for use in educational purposes only. Using this tool for attacking web servers without prior mutual consistency can be considered as an illegal activity. It is the final user's responsibility to obey all applicable local, state and federal laws. The author assume no liability and is not responsible for any misuse or damage caused by this tool.
 
 ### Table of Contents:
   * [**Showcase**](#showcase)
@@ -21,6 +21,8 @@ FwdSh3ll
 Showcase
 ==========
 [![Demo](https://asciinema.org/a/200224.png)](https://asciinema.org/a/200224?autoplay=1)
+
+This demo is showing the [HTB Stratosphere](https://www.hackthebox.eu/home/machines/profile/129 "Hack The Box :: Stratosphere") box owning.
 
 Description
 ==========
@@ -38,7 +40,7 @@ FwdSh3ll makes use of the following external modules:
   * [requests](http://docs.python-requests.org/en/master "Requests: HTTP for Humans — Requests 2.19.1 documentation")
   * [termcolor](https://pypi.python.org/pypi/termcolor "termcolor 1.1.0 : Python Package Index")
 
-Resolve all Python dependencies with one click with `pip`:
+Resolve all Python dependencies with one click via `pip`:
 ```
 $ python3 -m pip install -r requirements.txt
 ```
