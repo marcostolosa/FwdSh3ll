@@ -29,7 +29,7 @@ Description
 ==========
 This method of getting a shell is described in a couple of IppSec's youtube write-ups ([Sokar](https://www.youtube.com/watch?v=k6ri-LFWEj4 "VulnHub - Sokar - YouTube") and [Stratosphere](https://www.youtube.com/watch?v=uMwcJQcUnmY "HackTheBox - Stratosphere - YouTube")). The main idea here is to create a named pipe with `mkfifo` command and `tail -f` its input to a bash process. The output would go into a regular text file which could be simply `cat`'ted. Here is how it looks like:
 
-![Screenshot](https://user-images.githubusercontent.com/23141800/45254829-6ddda800-b387-11e8-9411-48ddb338f1f2.png)
+![Screenshot](https://user-images.githubusercontent.com/23141800/45257939-3b4ba380-b3b7-11e8-9f50-b4aa50b1b08a.png)
 
 Dependencies
 ==========
