@@ -169,7 +169,7 @@ def updater():
 	cprint(f'[*] Loaded {numOfPayloads} payload(s)', 'green')
 
 	try:
-		latestConf = requests.get('https://raw.githubusercontent.com/snovvcrash/testrep/master/FwdSh3ll.conf', timeout=10).text
+		latestConf = requests.get('https://raw.githubusercontent.com/snovvcrash/FwdSh3ll/master/FwdSh3ll.conf', timeout=10).text
 	except Exception:
 		cprint('[!] Failed to check for updates', 'yellow')
 		return
