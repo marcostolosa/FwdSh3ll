@@ -16,11 +16,12 @@ FwdSh3ll
     * [DEB Packages](#deb-packages)
     * [PIP Packages](#pip-packages)
   * [**Usage**](#usage)
+  * [**Known Issues**](#known-issues)
   * [**Post Scriptum**](#post-scriptum)
 
 Showcase
 ==========
-[![Demo](https://asciinema.org/a/200224.png)](https://asciinema.org/a/200224?autoplay=1)
+[![Demo](https://asciinema.org/a/200273.png)](https://asciinema.org/a/200273?autoplay=1)
 
 This demo is showing the [HTB Stratosphere](https://www.hackthebox.eu/home/machines/profile/129 "Hack The Box :: Stratosphere") box owning.
 
@@ -63,6 +64,10 @@ python3 FwdSh3ll.py [-h]
 * Mode (single command vs forward shell):
     Choose required action.
 ```
+
+Known Issues
+==========
+* If you get the `connection timeout` error when initializing the forward shell, just rerun the script.
 
 Post Scriptum
 ==========
