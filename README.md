@@ -65,9 +65,17 @@ python3 FwdSh3ll.py [-h]
     Choose required action.
 ```
 
+To successfully spawn the forward shell the following stuff should be reachable on the target host:
+  * /bin/sh
+  * /usr/bin/mkfifo
+  * /usr/bin/tail
+  * /usr/bin/base64
+
 Known Issues
 ==========
 * If you get the `connection timeout` error when initializing the forward shell, just rerun the script.
+* Some Linux distributions does not support the `/dev/shm` path (shared memory, availability depends on kernel config), so if something goes wrong, try changing the `PATH` constant (in the `FwdSh3ll.py` source) to `/tmp`.
+* When setting the named pipes, the `>& file.output` syntax for combinig *stdout* and *stderr* should be supported by both `bash/zsh` and `(t)csh`, but it's not a Bash preferable way though. So there could be issues with the redirection syntax for various shells. Keep that in mind.
 
 Post Scriptum
 ==========
