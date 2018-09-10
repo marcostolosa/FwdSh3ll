@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from argparse import ArgumentParser
+from configparser import ConfigParser
 
 
 def cliOptions():
@@ -24,3 +25,15 @@ def cliOptions():
 	)
 
 	return parser.parse_args()
+
+
+def configWriter(version, numOfPayloads):
+	config = ConfigParser()
+	config['GENERAL'] = {'version': version}
+	config['Payloads'] = {'total': numOfPayloads}
+	return config
+
+
+def configReader(config_str):
+	config = ConfigParser()
+	return config.read_string(config_str)
