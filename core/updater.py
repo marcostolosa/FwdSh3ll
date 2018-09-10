@@ -30,11 +30,11 @@ def updater():
 		cprint(f'[!] Failed to check for updates: {str(e)}', 'yellow')
 	else:
 		if resp.status_code == 200:
-			rconfig = configReader(resp.text)
+			rconfig = configReader(resp.text.strip())
 
 			if rconfig['GENERAL']['version'] != VERSION:
 				cprint('[!] New version is available!', 'yellow')
-			if int(rconfig['Payloads']['total']) > numOfPayloads:
+			if int(rconfig['payloads']['total']) > numOfPayloads:
 				cprint('[!] New payloads are available!', 'yellow')
 
 	return allPayloads

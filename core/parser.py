@@ -30,10 +30,11 @@ def cliOptions():
 def configWriter(version, numOfPayloads):
 	config = ConfigParser()
 	config['GENERAL'] = {'version': version}
-	config['Payloads'] = {'total': numOfPayloads}
+	config['payloads'] = {'total': numOfPayloads}
 	return config
 
 
 def configReader(config_str):
 	config = ConfigParser()
-	return config.read_string(config_str)
+	config.read_string(config_str)
+	return config
