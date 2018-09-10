@@ -31,12 +31,11 @@ import requests
 from importlib import import_module
 from base64 import b64encode
 from time import sleep
-from os import listdir
 
 from termcolor import colored, cprint
 
 from core.updater import updater
-from core.cliopts import cliOptions
+from core.parser import cliOptions
 from core.common import BANNER
 
 INPUT = 'fwdshin'
@@ -131,12 +130,11 @@ class ForwardShell:
 				if firstConnect:
 					firstConnect = False
 					continue
-				cprint('[-] Connection timeout error', 'red')
+				cprint('[-] Connection timeout error', 'yellow')
 				return None
 
 			except Exception as e:
-				print(payload)
-				cprint(f'[!] Exception caught: {str(e)}', 'red')
+				cprint(f'[!] Exception caught: {str(e)}', 'yellow')
 				return None
 
 		return page.decode('utf-8')
@@ -169,9 +167,7 @@ def main():
 	print(BANNER)
 
 	args = cliOptions()
-
-	allPayloads = [pn[:-3] for pn in sorted(listdir('./payloads')) if pn.endswith('.py') and not pn.startswith('_')]
-	updater(allPayloads)
+	allPayloads = updater()
 
 	print()
 	while True:
