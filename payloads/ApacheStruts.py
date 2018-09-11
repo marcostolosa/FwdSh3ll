@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Source: https://www.exploit-db.com/exploits/41570
+"""
+Based on:  https://www.exploit-db.com/raw/41570
+Target URL example:  http://<RHOST>:<RPORT>/struts2-showcase/index.action
+"""
 
 
 def genPayload(cmd):

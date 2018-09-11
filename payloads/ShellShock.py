@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Based on:
+Target URL example:  http://<RHOST>:<RPORT>/cgi-bin/cat
+"""
+
 
 def genPayload(cmd):
 	"""CVE-2014-6271."""
