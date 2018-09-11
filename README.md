@@ -41,9 +41,15 @@ FwdSh3ll makes use of the following external modules:
   * [requests](http://docs.python-requests.org/en/master "Requests: HTTP for Humans — Requests 2.19.1 documentation")
   * [termcolor](https://pypi.python.org/pypi/termcolor "termcolor 1.1.0 : Python Package Index")
 
-Resolve all Python dependencies with one click via `pip`:
+To resolve all Python dependencies create a virtual environment and run `pip` from within:
 ```
-$ python3 -m pip install -r requirements.txt
+$ virtualenv -p python3 venv && . venv/bin/activate
+(venv) $ pip install -r requirements.txt
+```
+
+Or let the `pipenv` do all the dirty work for you:
+```
+$ pipenv install && pipenv shell
 ```
 
 Usage
