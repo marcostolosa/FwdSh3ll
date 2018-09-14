@@ -16,14 +16,6 @@ def cliOptions():
 		help='set remote path of the named pipes to PIPES_PATH (default: "/dev/shm")'
 	)
 
-	parser.add_argument(
-		'-b64',
-		'--no-base64',
-		action='store_true',
-		default=True,
-		help='do NOT wrap the final command into Base64 encoding'
-	)
-
 	return parser.parse_args()
 
 

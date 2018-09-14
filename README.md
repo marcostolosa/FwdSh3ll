@@ -12,14 +12,15 @@ This tool **does not claim to provide** an all-occasions usage experience out of
 > LEGAL DISCLAIMER: FwdSh3ll was written for use in educational purposes only. Using this tool for attacking web servers without prior mutual consistency can be considered as an illegal activity. It is the final user's responsibility to obey all applicable local, state and federal laws. The author assume no liability and is not responsible for any misuse or damage caused by this tool.
 
 ### Table of Contents:
-  * [**Showcase**](#showcase)
-  * [**Description**](#description)
-  * [**Dependencies**](#dependencies)
-    * [DEB Packages](#deb-packages)
-    * [PIP Packages](#pip-packages)
-  * [**Usage**](#usage)
-  * [**Known Issues**](#known-issues)
-  * [**Post Scriptum**](#post-scriptum)
+- [**Showcase**](#showcase)
+- [**Description**](#description)
+- [**Dependencies**](#dependencies)
+  - [DEB Packages](#deb-packages)
+  - [PIP Packages](#pip-packages)
+- [**Usage**](#usage)
+- [**Payloads**](#payloads)
+- [**Known Issues**](#known-issues)
+- [**Post Scriptum**](#post-scriptum)
 
 Showcase
 ==========
@@ -31,7 +32,7 @@ Description
 ==========
 This method of getting a shell is described in a couple of IppSec's youtube write-ups ([Sokar](https://www.youtube.com/watch?v=k6ri-LFWEj4 "VulnHub - Sokar - YouTube") and [Stratosphere](https://www.youtube.com/watch?v=uMwcJQcUnmY "HackTheBox - Stratosphere - YouTube")). The main idea here is to create a named pipe with `mkfifo` command and `tail -f` its input to a bash process. The output would go into a regular text file which could be simply `cat`'ted. Here is how it looks like:
 
-![Screenshot](https://user-images.githubusercontent.com/23141800/45520112-8a7f4300-b7c0-11e8-89f0-bf428989026c.png)
+![Screenshot](https://user-images.githubusercontent.com/23141800/45555370-4ed88d80-b841-11e8-8af9-f887804f2d6c.png)
 
 Dependencies
 ==========
@@ -64,7 +65,6 @@ non-interactive mode options
 optional arguments:
   -h, --help                               show this help message and exit
   -pp PIPES_PATH, --pipes-path PIPES_PATH  set remote path of the named pipes to PIPES_PATH (default: "/dev/shm")
-  -b64, --no-base64                        do NOT wrap the final payload into Base64 encoding
 
 interactive mode options
 
@@ -82,6 +82,15 @@ To successfully spawn the forward shell the following stuff should be reachable 
   * `/bin/sh`
   * `/usr/bin/mkfifo`
   * `/usr/bin/tail`
+  * `/usr/bin/base64`
+
+Payloads
+==========
+List of RCE vulnerabilities for which payloads are available (will be expanding):
+  * `ApacheStruts.py` -- Apache Struts 2.3.5 < 2.3.31 / 2.5 < 2.5.10 RCE -- [CVE-2017-5638](https://nvd.nist.gov/vuln/detail/CVE-2017-5638 "NVD - CVE-2017-5638") ([exploit-db](https://www.exploit-db.com/exploits/41570 "Apache Struts 2.3.5 < 2.3.31 / 2.5 < 2.5.10 - Remote Code Execution"))
+  * `NodejsExpress.py` -- Node.js deserialization bug for RCE -- [CVE-2017-5941](https://nvd.nist.gov/vuln/detail/CVE-2017-5941 "NVD - CVE-2017-5941") ([exploit-db](https://www.exploit-db.com/docs/english/41289-exploiting-node.js-deserialization-bug-for-remote-code-execution.pdf "Exploiting Node.js deserialization bug for Remote Code Execution (CVE-2017-5941)"))
+  * `ShellShock.py` -- Bash code injection RCE -- [CVE-2014-6271](https://nvd.nist.gov/vuln/detail/CVE-2014-6271 "NVD - CVE-2014-6271")
+  * `WebShell.py` -- Just a web shell
 
 Known Issues
 ==========
