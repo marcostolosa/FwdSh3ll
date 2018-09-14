@@ -87,10 +87,10 @@ To successfully spawn the forward shell the following stuff should be reachable 
 Payloads
 ==========
 List of RCE vulnerabilities for which payloads are available (will be expanding):
-  * `ApacheStruts.py` -- Apache Struts 2.3.5 < 2.3.31 / 2.5 < 2.5.10 RCE -- [CVE-2017-5638](https://nvd.nist.gov/vuln/detail/CVE-2017-5638 "NVD - CVE-2017-5638") ([exploit-db](https://www.exploit-db.com/exploits/41570 "Apache Struts 2.3.5 < 2.3.31 / 2.5 < 2.5.10 - Remote Code Execution"))
-  * `NodejsExpress.py` -- Node.js deserialization bug for RCE -- [CVE-2017-5941](https://nvd.nist.gov/vuln/detail/CVE-2017-5941 "NVD - CVE-2017-5941") ([exploit-db](https://www.exploit-db.com/docs/english/41289-exploiting-node.js-deserialization-bug-for-remote-code-execution.pdf "Exploiting Node.js deserialization bug for Remote Code Execution (CVE-2017-5941)"))
-  * `ShellShock.py` -- Bash code injection RCE -- [CVE-2014-6271](https://nvd.nist.gov/vuln/detail/CVE-2014-6271 "NVD - CVE-2014-6271")
-  * `WebShell.py` -- Just a web shell
+  * `ApacheStruts.py` — Apache Struts 2.3.5 < 2.3.31 / 2.5 < 2.5.10 RCE — [CVE-2017-5638](https://nvd.nist.gov/vuln/detail/CVE-2017-5638 "NVD - CVE-2017-5638") ([exploit-db](https://www.exploit-db.com/exploits/41570 "Apache Struts 2.3.5 < 2.3.31 / 2.5 < 2.5.10 - Remote Code Execution"))
+  * `NodejsExpress.py` — Node.js deserialization bug for RCE — [CVE-2017-5941](https://nvd.nist.gov/vuln/detail/CVE-2017-5941 "NVD - CVE-2017-5941") ([exploit-db](https://www.exploit-db.com/docs/english/41289-exploiting-node.js-deserialization-bug-for-remote-code-execution.pdf "Exploiting Node.js deserialization bug for Remote Code Execution (CVE-2017-5941)"))
+  * `ShellShock.py` — Bash code injection RCE — [CVE-2014-6271](https://nvd.nist.gov/vuln/detail/CVE-2014-6271 "NVD - CVE-2014-6271")
+  * `WebShell.py` — Just a web shell
 
 Known Issues
 ==========
