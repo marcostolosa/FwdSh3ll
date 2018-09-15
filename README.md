@@ -26,7 +26,7 @@ Showcase
 ==========
 [![Demo](https://asciinema.org/a/200295.png)](https://asciinema.org/a/200295?autoplay=1)
 
-This demo is showing the [HTB Stratosphere](https://www.hackthebox.eu/home/machines/profile/129 "Hack The Box :: Stratosphere") box user owning.
+This demo is showing the [HTB Stratosphere](https://www.hackthebox.eu/home/machines/profile/129 "Hack The Box :: Stratosphere") box tomcat user owning.
 
 Description
 ==========
