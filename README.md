@@ -5,7 +5,7 @@ FwdSh3ll
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/snovvcrash/FwdSh3ll/master/LICENSE)
 [![Built with Love](https://img.shields.io/badge/built%20with-%F0%9F%92%97%F0%9F%92%97%F0%9F%92%97-lightgrey.svg)](https://emojipedia.org/growing-heart)
 
-**FwdSh3ll** is a tiny open source framework for crafting *forward shells*. What is a forward shell? Have you ever been caught in a situation when looking for an approach to a CTF box you discover an RCE vulnerability in a web app but despite that you can't get a reverse shell no matter how hard you try due to strictly filtered outbound traffic? A forward shell is a scheme of shell interacting with a vulnerable Linux machine based on the **named pipes** mechanism. Check the [description](#description) for details!
+**FwdSh3ll** is a tiny open source framework for crafting *forward shells*. What is a forward shell? Have you ever been caught in a situation when looking for an approach to a CTF box you discover an RCE vulnerability in a web app but despite that you can't get a reverse shell no matter how hard you try due to strictly filtered outbound traffic? A forward shell is a scheme of shell interaction with a vulnerable Linux machine based on the **named pipes** mechanism. Check the [description](#description) for details!
 
 This tool **does not claim to provide** an all-occasions usage experience out of the box. Each pentest case involes an individual basic enumeration first, whose results may require minor code adjustment.
 
@@ -30,9 +30,9 @@ This demo is showing the [HTB Stratosphere](https://www.hackthebox.eu/home/machi
 
 Description
 ==========
-This method of getting a shell is described in a couple of IppSec's youtube write-ups ([Sokar](https://www.youtube.com/watch?v=k6ri-LFWEj4 "VulnHub - Sokar - YouTube") and [Stratosphere](https://www.youtube.com/watch?v=uMwcJQcUnmY "HackTheBox - Stratosphere - YouTube")). The main idea here is to create a named pipe with `mkfifo` command and `tail -f` its input to a bash process. The output would go into a regular text file which could be simply `cat`'ted. Here is how it looks like:
+This method of getting a shell is described in a couple of IppSec's youtube write-ups ([Sokar](https://www.youtube.com/watch?v=k6ri-LFWEj4 "VulnHub - Sokar - YouTube") and [Stratosphere](https://www.youtube.com/watch?v=uMwcJQcUnmY "HackTheBox - Stratosphere - YouTube")). The main idea here is to create a named pipe with `mkfifo` command and `tail -f` its input to a bash process. The output would go into a regular text file which could be simply `cat`'ted. What is also very cool is that you can move around the filesystem and the shell will remember your current directory as well as spawn other pty shells and so on. Here is how it looks like:
 
-![Screenshot](https://user-images.githubusercontent.com/23141800/45589017-10b59980-b927-11e8-8f83-420d0961a2d3.png)
+![Screenshot](https://user-images.githubusercontent.com/23141800/45626338-f4853a00-ba97-11e8-8f1a-962b4f32a36b.png)
 
 Dependencies
 ==========
