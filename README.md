@@ -5,7 +5,7 @@ FwdSh3ll
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/snovvcrash/FwdSh3ll/master/LICENSE)
 [![Built with Love](https://img.shields.io/badge/built%20with-%F0%9F%92%97%F0%9F%92%97%F0%9F%92%97-lightgrey.svg)](https://emojipedia.org/growing-heart)
 
-**FwdSh3ll** is a tiny open source framework for crafting *forward shells*. What is a forward shell? Have you ever been caught in a situation when looking for an approach to a CTF box you discover an RCE vulnerability in a web app but despite that you can't get a reverse shell no matter how hard you try due to strictly filtered outbound traffic? A forward shell is a scheme of shell interaction with a vulnerable Linux machine based on the **named pipes** mechanism. Check the [description](#description) for details!
+**FwdSh3ll** is a tiny open source explotiation-framework for crafting *forward shells*. What is a forward shell? Have you ever been caught in a situation when looking for an approach to a CTF box you discover an RCE vulnerability in a web app but despite that you can't get a reverse shell no matter how hard you try due to strictly filtered outbound traffic? A forward shell is a scheme of shell interaction with a vulnerable Linux machine based on the **named pipes** mechanism. Check the [description](#description) for details!
 
 This tool **does not claim to provide** an all-occasions usage experience out of the box. Each pentest case involes an individual basic enumeration first, whose results may require minor code adjustment.
 
