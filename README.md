@@ -32,7 +32,7 @@ This demo is showing the [HTB Stratosphere](https://www.hackthebox.eu/home/machi
 
 Description
 ==========
-This method of getting a shell is described in a couple of IppSec's youtube write-ups ([Sokar](https://www.youtube.com/watch?v=k6ri-LFWEj4 "VulnHub - Sokar - YouTube") and [Stratosphere](https://www.youtube.com/watch?v=uMwcJQcUnmY "HackTheBox - Stratosphere - YouTube")). The main idea here is to create a named pipe with `mkfifo` command and `tail -f` its input to a `/bin/sh` process. The output would go into a regular text file which could be simply `cat`'ted. What is also very cool is that you can move around the filesystem and the shell will remember your current directory as well as spawn other pty shells and so on. Here is how it looks like:
+This method of getting a shell is described in a couple of IppSec's youtube write-ups ([Sokar](https://youtu.be/k6ri-LFWEj4?t=15m35s "VulnHub - Sokar - YouTube") and [Stratosphere](https://youtu.be/uMwcJQcUnmY?t=21m10s "HackTheBox - Stratosphere - YouTube")). The main idea here is to create a named pipe with `mkfifo` command and `tail -f` its input to a `/bin/sh` process. The output would go into a regular text file which could be simply `cat`'ted. What is also very cool is that you can move around the filesystem and the shell will remember your current directory as well as spawn other pty shells and so on. Here is how it looks like:
 
 ![Screenshot](https://user-images.githubusercontent.com/23141800/45626338-f4853a00-ba97-11e8-8f1a-962b4f32a36b.png)
 
