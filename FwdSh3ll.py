@@ -3,7 +3,7 @@
 
 """
 @file FwdSh3ll.py
-@author Sam Freeside <scr.im/emsnovvcrash>
+@author Sam Freeside <snovvcrash@protonmail[.]ch>
 @date 2018-09
 
 @brief Forward shell generation framework.
