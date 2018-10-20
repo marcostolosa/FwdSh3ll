@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
-Based on:  https://www.exploit-db.com/raw/41570
+Based on:            https://www.exploit-db.com/raw/41570
 Target URL example:  http://<RHOST>:<RPORT>/struts2-showcase/index.action
 """
 

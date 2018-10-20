@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
-Based on:  https://github.com/hoainam1989/training-application-security/blob/master/shell/node_shell.py
+Based on:            https://github.com/hoainam1989/training-application-security/blob/master/shell/node_shell.py
 Target URL example:  http://<RHOST>:<RPORT>
 """
 

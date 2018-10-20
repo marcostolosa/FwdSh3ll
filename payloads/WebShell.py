@@ -1,8 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
-Based on:
 Target URL example:  http://<RHOST>:<RPORT>/browse.php?file=/var/log/httpd-access.log&cmd=
 
 Notes:
