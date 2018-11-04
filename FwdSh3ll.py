@@ -1,15 +1,27 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+# Usage: python3 FwdSh3ll.py [-h]
+
+"""LICENSE
+
+Copyright (C) 2018 Sam Freeside
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-@file FwdSh3ll.py
-@author Sam Freeside <snovvcrash@protonmail[.]ch>
-@date 2018-09
 
-@brief Forward shell generation framework.
-
-@disclaimer
-LEGAL DISCLAIMER
+"""LEGAL DISCLAIMER
 
 FwdSh3ll was written for use in educational purposes only. Using this tool
 for attacking web servers without prior mutual consistency can be considered
@@ -18,8 +30,17 @@ applicable local, state and federal laws.
 
 The author assume no liability and is not responsible for any misuse or
 damage caused by this tool.
-@enddisclaimer
 """
+
+__author__    = 'Sam Freeside (@snovvcrash)'
+__email__     = 'snovvcrash@protonmail[.]ch'
+__copyright__ = 'Copyright (C) 2018 snovvcrash'
+
+__site__    = 'https://github.com/snovvcrash/FwdSh3ll'
+__date__    = '2018-09-08'
+__version__ = '0.2'
+__license__ = 'GPL-3.0'
+__brief__   = 'Forward shell generation framework.'
 
 import urllib3
 import threading
