@@ -35,6 +35,7 @@ damage caused by this tool.
 __author__    = 'Sam Freeside (@snovvcrash)'
 __email__     = 'snovvcrash@protonmail[.]ch'
 __copyright__ = 'Copyright (C) 2018 snovvcrash'
+__credits__   = ['@ippsec', '@0xdf']
 
 __site__    = 'https://github.com/snovvcrash/FwdSh3ll'
 __date__    = '2018-09-08'
