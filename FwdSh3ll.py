@@ -37,10 +37,10 @@ __email__     = 'snovvcrash@protonmail[.]ch'
 __copyright__ = 'Copyright (C) 2018 Sam Freeside'
 __credits__   = ['@ippsec', '@0xdf']
 
-__site__    = 'https://github.com/snovvcrash/FwdSh3ll'
-__date__    = '2018-09-08'
-__version__ = '0.2'
 __license__ = 'GPL-3.0'
+__site__    = 'https://github.com/snovvcrash/FwdSh3ll'
+__version__ = '0.2'
+__date__    = '2018-09-08'
 __brief__   = 'Forward shell generation framework.'
 
 import urllib3
