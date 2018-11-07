@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 requests = "*"
 termcolor = "*"
+pip = "==18.0"
 
 [dev-packages]
 
