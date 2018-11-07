@@ -3,24 +3,6 @@
 
 # Usage: python3 FwdSh3ll.py [-h]
 
-"""LICENSE
-
-Copyright (C) 2018 Sam Freeside
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""
-
 """LEGAL DISCLAIMER
 
 FwdSh3ll was written for use in educational purposes only. Using this tool
@@ -38,10 +20,11 @@ __copyright__ = 'Copyright (C) 2018 Sam Freeside'
 __credits__   = ['@ippsec', '@0xdf']
 
 __license__ = 'GPL-3.0'
-__site__    = 'https://github.com/snovvcrash/FwdSh3ll'
-__version__ = '0.2'
 __date__    = '2018-09-08'
+__version__ = '0.2'
+__site__    = 'https://github.com/snovvcrash/FwdSh3ll'
 __brief__   = 'Forward shell generation framework.'
+
 
 import urllib3
 import threading
