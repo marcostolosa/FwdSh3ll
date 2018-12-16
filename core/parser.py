@@ -4,6 +4,14 @@
 from argparse import ArgumentParser
 from configparser import ConfigParser
 
+__author__    = 'Sam Freeside (@snovvcrash)'
+__email__     = 'snovvcrash@protonmail[.]ch'
+__copyright__ = 'Copyright (C) 2018 Sam Freeside'
+
+__license__ = 'GPL-3.0'
+__site__    = 'https://github.com/snovvcrash/FwdSh3ll'
+__brief__   = 'Parser for options (command line and config file).'
+
 
 def cliOptions():
 	parser = ArgumentParser()

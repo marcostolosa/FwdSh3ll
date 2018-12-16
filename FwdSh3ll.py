@@ -21,7 +21,6 @@ __credits__   = ['@ippsec', '@0xdf']
 
 __license__ = 'GPL-3.0'
 __date__    = '2018-09-08'
-__version__ = '0.2'
 __site__    = 'https://github.com/snovvcrash/FwdSh3ll'
 __brief__   = 'Forward shell generation framework.'
 
