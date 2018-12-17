@@ -97,7 +97,7 @@ List of RCE vulnerabilities for which payloads are available (will be expanding)
 Known Issues
 ==========
 * If you get the `connection timeout` error when initializing the forward shell, just rerun the script.
-* Some Linux distributions does not support the `/dev/shm` path (shared memory, availability depends on kernel config), so if something goes wrong, try changing it to `/tmp` with `-p` switch.
+* Some Linux distributions does not support the `/dev/shm` path (shared memory, availability depends on kernel config), so if something goes wrong, try changing it to `/tmp` with `-pp` switch.
 * When setting the named pipes, the `>& file.output` syntax for combinig *stdout* and *stderr* should be supported by both `bash/zsh` and `(t)csh`, but it's not a Bash preferable way though. So there could be issues with the redirection syntax for various shells. Keep that in mind.
 
 Post Scriptum
