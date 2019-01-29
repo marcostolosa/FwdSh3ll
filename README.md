@@ -1,7 +1,7 @@
 FwdSh3ll
 ==========
 ![FwdSh3ll Version](https://img.shields.io/badge/ver-0.2-red.svg)
-[![Python Version](https://img.shields.io/badge/python-3.x-blue.svg)](https://www.python.org/downloads)
+[![Python Version](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads)
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/snovvcrash/FwdSh3ll/master/LICENSE)
 [![Built with Love](https://img.shields.io/badge/built%20with-%F0%9F%92%97%F0%9F%92%97%F0%9F%92%97-lightgrey.svg)](https://emojipedia.org/growing-heart)
 
@@ -39,7 +39,7 @@ This method of getting a shell is described in a couple of IppSec's youtube writ
 Dependencies
 ==========
 ### DEB Packages
-  * python3.x (or newer) interpreter
+  * python3.6 (or newer) interpreter
 
 ### PIP Packages
 FwdSh3ll makes use of the following external modules:
