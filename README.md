@@ -102,7 +102,7 @@ Known Issues
 
 Post Scriptum
 ==========
-Special thanks to [0xdf](https://www.hackthebox.eu/profile/4935 "Hack The Box :: 0xdf:: Member Profile") and [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA "IppSec - YouTube") for sharing the forward shell concept.
+Special thanks to [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA "IppSec - YouTube") and [0xdf](https://www.hackthebox.eu/profile/4935 "Hack The Box :: 0xdf:: Member Profile") for sharing the forward shell concept.
 
 If this tool has been useful for you, feel free to buy me a coffee :coffee:
 
