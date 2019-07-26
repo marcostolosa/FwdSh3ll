@@ -10,7 +10,7 @@ FwdSh3ll
 
 What is a forward shell? Have you ever been caught in a situation when looking for an approach to a CTF box, you discover an RCE vulnerability in a web app but despite that you can't get a reverse shell no matter how hard you try due to strictly filtered outbound traffic? A forward shell is a scheme of shell interaction with a vulnerable Linux machine based on the **named pipes** mechanism. Check the [description](#description) for details!
 
-This tool **does not claim to provide** an all-occasions usage experience out of the box. Each pentest case involes an individual basic enumeration first, whose results may require minor code adjustment.
+This tool **does not claim to provide** a universal way out of any traffic lock case out-of-the-box. Each pentest case involes an individual basic enumeration first, whose results may require minor code adjustment.
 
 > LEGAL DISCLAIMER: FwdSh3ll was written for use in educational purposes only. Using this tool for attacking web servers without prior mutual consistency can be considered as an illegal activity. It is the final user's responsibility to obey all applicable local, state and federal laws. The author assume no liability and is not responsible for any misuse or damage caused by this tool.
 
