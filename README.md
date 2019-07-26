@@ -17,8 +17,6 @@ This tool **does not claim to provide** an all-occasions usage experience out of
 ### Table of Contents:
 * [**Showcase**](#showcase)
   - [HTB: Stratosphere (CVE-2017-5638)](#htb-stratosphere-cve-2017-5638)
-    * [FwdSh3ll-v0.1 (Pre-Alpha)](#fwdsh3ll-v01-pre-alpha)
-    * [FwdSh3ll-v1.0.1-1](#fwdsh3ll-v101-1)
   - [PentesterLab: Shellshock (CVE-2014-6271)](#pentesterlab-shellshock-cve-2014-6271)
 * [**Description**](#description)
 * [**Dependencies**](#dependencies)
