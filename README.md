@@ -16,6 +16,10 @@ This tool **does not claim to provide** an all-occasions usage experience out of
 
 ### Table of Contents:
 * [**Showcase**](#showcase)
+  - [HTB: Stratosphere (CVE-2017-5638)](#htb-stratosphere-cve-2017-5638)
+    * [FwdSh3ll-v0.1 (Pre-Alpha)](#fwdsh3ll-v01-pre-alpha)
+    * [FwdSh3ll-v1.0.1-1](#fwdsh3ll-v101-1)
+  - [PentesterLab: Shellshock (CVE-2014-6271)](#pentesterlab-shellshock-cve-2014-6271)
 * [**Description**](#description)
 * [**Dependencies**](#dependencies)
   - [DEB Packages](#deb-packages)
@@ -23,6 +27,7 @@ This tool **does not claim to provide** an all-occasions usage experience out of
 * [**Usage**](#usage)
 * [**Payloads**](#payloads)
 * [**Known Issues**](#known-issues)
+* [**Credits & References**](#credits--references)
 * [**Post Scriptum**](#post-scriptum)
 
 Showcase
@@ -36,7 +41,7 @@ Showcase
 
 #### FwdSh3ll-v1.0.1-1
 
-[![demo.cast](https://asciinema.org/a/200295.png)](https://asciinema.org/a/259376?autoplay=1)
+[![demo.cast](https://asciinema.org/a/259376.png)](https://asciinema.org/a/259376?autoplay=1)
 
 ### [PentesterLab: Shellshock (CVE-2014-6271)](https://pentesterlab.com/exercises/cve-2014-6271/attachments)
 
@@ -130,6 +135,11 @@ Known Issues
 * If you get the `connection timeout` error when initializing the forward shell, just rerun the script.
 * Some Linux distributions does not support the `/dev/shm` path (shared memory, availability depends on kernel config), so if something goes wrong, try changing it to `/tmp` with `-pp` switch.
 * When setting the named pipes, the `>& file.output` syntax for combinig *stdout* and *stderr* should be supported by both `bash/zsh` and `(t)csh`, but it's not a Bash preferable way though. So there could be issues with the redirection syntax for various shells. Keep that in mind.
+
+Credits & References
+==========
+
+* [FwdSh3ll: Когда Reverse и Bind не смогли, Forward-Shell спешит на помощь](https://codeby.net/threads/fwdsh3ll-kogda-reverse-i-bind-ne-smogli-forward-shell-speshit-na-pomosch.65029/)
 
 Post Scriptum
 ==========
