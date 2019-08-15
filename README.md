@@ -6,9 +6,9 @@ FwdSh3ll
 [![license.svg](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/snovvcrash/FwdSh3ll/master/LICENSE)
 [![built-with-love.svg](https://img.shields.io/badge/built%20with-%F0%9F%92%97%F0%9F%92%97%F0%9F%92%97-lightgrey.svg)](https://emojipedia.org/growing-heart)
 
-**FwdSh3ll** is a tiny open source web-payload oriented exploitation framework for crafting *forward shells* with Metasploit-like usage experience.
+**FwdSh3ll** is a tiny PoC web-payload oriented exploitation framework for crafting *forward shells* with Metasploit-like usage experience.
 
-What is a forward shell? Have you ever been caught in a situation when looking for an approach to a CTF box, you discover an RCE vulnerability in a web app but despite that you can't get a reverse shell no matter how hard you try due to strictly filtered outbound traffic? A forward shell is a scheme of shell interaction with a vulnerable Linux machine based on the **named pipes** mechanism. Check the [description](#description) for details!
+What is a forward shell? Have you ever been caught in a situation when looking for an approach to a CTF box, you discover an RCE vulnerability in a web app but despite that you can't get a reverse shell no matter how hard you try due to strictly filtered outbound traffic? A forward shell is a scheme of shell interaction with a vulnerable Linux machine based on the **named pipes** mechanism. Check the [description](#description) for details.
 
 This tool **does not claim to provide** a universal way out of any traffic lock case out-of-the-box. Each pentest case involes an individual basic enumeration first, whose results may require minor code adjustment.
 
@@ -137,7 +137,8 @@ Known Issues
 Credits & References
 ==========
 
-* [FwdSh3ll: Когда Reverse и Bind не смогли, Forward-Shell спешит на помощь](https://codeby.net/threads/fwdsh3ll-kogda-reverse-i-bind-ne-smogli-forward-shell-speshit-na-pomosch.65029/)
+* [FwdSh3ll: Когда Reverse и Bind не смогли, Forward-Shell спешит на помощь / Codeby](https://codeby.net/threads/fwdsh3ll-kogda-reverse-i-bind-ne-smogli-forward-shell-speshit-na-pomosch.65029/)
+* [Полет в стратосферу. Ломаем Struts через Action-приложение и мастерим Forward Shell - «Хакер»](https://xakep.ru/2019/08/13/struts-forward-shell/#toc03.1)
 
 Post Scriptum
 ==========
