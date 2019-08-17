@@ -35,11 +35,11 @@ Showcase
 
 #### FwdSh3ll-v0.1 (Pre-Alpha)
 
-[![demo.cast](https://asciinema.org/a/200295.png)](https://asciinema.org/a/200295?autoplay=1)
+[![demo-v0.1.cast](https://asciinema.org/a/200295.png)](https://asciinema.org/a/200295?autoplay=1)
 
 #### FwdSh3ll-v1.0.1-1
 
-[![demo.cast](https://asciinema.org/a/259376.png)](https://asciinema.org/a/259376?autoplay=1)
+[![demo-v1.0.1-1.cast](https://asciinema.org/a/259376.png)](https://asciinema.org/a/259376?autoplay=1)
 
 ### [PentesterLab: Shellshock (CVE-2014-6271)](https://pentesterlab.com/exercises/cve-2014-6271/attachments)
 
