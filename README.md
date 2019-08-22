@@ -17,6 +17,7 @@ This tool **does not claim to provide** a universal way out of any traffic lock 
 ### Table of Contents:
 * [**Showcase**](#showcase)
   - [HTB: Stratosphere (CVE-2017-5638)](#htb-stratosphere-cve-2017-5638)
+  - [HTB: CTF ("HTBCTF" branch)](#htb-ctf-htbctf-branch)
   - [PentesterLab: Shellshock (CVE-2014-6271)](#pentesterlab-shellshock-cve-2014-6271)
 * [**Description**](#description)
 * [**Dependencies**](#dependencies)
@@ -40,6 +41,8 @@ Showcase
 #### FwdSh3ll-v1.0.1-1
 
 [![demo-v1.0.1-1.cast](https://asciinema.org/a/259376.png)](https://asciinema.org/a/259376?autoplay=1)
+
+### [HTB: CTF ("HTBCTF" branch)](https://github.com/snovvcrash/FwdSh3ll/tree/HTBCTF#htb-ctf)
 
 ### [PentesterLab: Shellshock (CVE-2014-6271)](https://pentesterlab.com/exercises/cve-2014-6271/attachments)
 
