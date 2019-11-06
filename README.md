@@ -140,8 +140,9 @@ Known Issues
 Credits & References
 ==========
 
+* [HTB{ Stratosphere } / snovvcrash’s Security Blog / Forward-Shell](https://snovvcrash.github.io/2018/09/05/htb-stratoshpere.html#forward-shell)
 * [FwdSh3ll: Когда Reverse и Bind не смогли, Forward-Shell спешит на помощь / Codeby](https://codeby.net/threads/fwdsh3ll-kogda-reverse-i-bind-ne-smogli-forward-shell-speshit-na-pomosch.65029/)
-* [Полет в стратосферу. Ломаем Struts через Action-приложение и мастерим Forward Shell - «Хакер»](https://xakep.ru/2019/08/13/struts-forward-shell/#toc03.1)
+* [Полет в стратосферу. Ломаем Struts через Action-приложение и мастерим Forward Shell / «Хакер»](https://xakep.ru/2019/08/13/struts-forward-shell/#toc03.1)
 
 Post Scriptum
 ==========
