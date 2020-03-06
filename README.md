@@ -27,7 +27,7 @@ This tool does not claim to provide a universal way out of any traffic lock case
 * [**Payloads**](#payloads)
 * [**Known Issues**](#known-issues)
 * [**Credits & References**](#credits--references)
-* [**Post Scriptum**](#post-scriptum)
+* [**Kudos**](#kudos)
 
 Showcase
 ==========
@@ -51,7 +51,7 @@ Showcase
 Description
 ==========
 
-This method of getting a shell is described in a couple of IppSec's videos (VulnHub's [Sokar](https://youtu.be/k6ri-LFWEj4?t=15m35s "VulnHub - Sokar - YouTube") and HTB's [Stratosphere](https://youtu.be/uMwcJQcUnmY?t=21m10s "HackTheBox - Stratosphere - YouTube")). The main idea here is to create a named pipe with `mkfifo` command and `tail -f` its input to a `/bin/sh` process. The output would go into a regular text file which could be simply `cat`'ted. What is also very cool is that you can move around with your current directory saved (i.e., persistent shell) as well as spawn other PTYs. Here is how it looks like:
+This method of getting a shell is described in a couple of IppSec's videos: [Sokar](https://youtu.be/k6ri-LFWEj4?t=15m35s "VulnHub - Sokar - YouTube") (VulnHub) and [Stratosphere](https://youtu.be/uMwcJQcUnmY?t=21m10s "HackTheBox - Stratosphere - YouTube") (HTB). The main idea here is to create a named pipe with `mkfifo` command and `tail -f` its input to a `/bin/sh` process. The output would go into a regular text file which could be simply `cat`'ted. What is also very cool is that you can move around with your current directory saved (i.e., persistent shell) as well as spawn other PTYs. Here is how it looks like:
 
 ![pipes.png](https://user-images.githubusercontent.com/23141800/45626338-f4853a00-ba97-11e8-8f1a-962b4f32a36b.png)
 
@@ -144,11 +144,7 @@ Credits & References
 * [FwdSh3ll: Когда Reverse и Bind не смогли, Forward-Shell спешит на помощь / Codeby](https://codeby.net/threads/fwdsh3ll-kogda-reverse-i-bind-ne-smogli-forward-shell-speshit-na-pomosch.65029/)
 * [Полет в стратосферу. Ломаем Struts через Action-приложение и мастерим Forward Shell / «Хакер»](https://xakep.ru/2019/08/13/struts-forward-shell/#toc03.1)
 
-Post Scriptum
+Kudos
 ==========
 
 Kudos to [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA "IppSec - YouTube") and [0xdf](https://www.hackthebox.eu/profile/4935 "Hack The Box :: 0xdf:: Member Profile") for sharing the forward shell concept.
-
-If this tool has been useful for you, feel free to buy me a coffee :coffee:
-
-[![coffee.png](https://user-images.githubusercontent.com/23141800/45254832-8948b300-b387-11e8-9206-23c3e10af5f2.png)](https://buymeacoff.ee/snovvcrash)

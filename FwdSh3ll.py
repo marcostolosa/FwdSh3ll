@@ -14,31 +14,9 @@ The author assume no liability and is not responsible for any misuse or
 damage caused by this tool.
 """
 
-"""LICENSE
-
-Copyright (C) 2019 Sam Freeside
-
-This file is part of FwdSh3ll.
-
-FwdSh3ll is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-FwdSh3ll is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with FwdSh3ll.  If not, see <http://www.gnu.org/licenses/>.
-"""
-
 __author__    = 'Sam Freeside (@snovvcrash)'
 __email__     = 'snovvcrash@protonmail[.]ch'
-__copyright__ = 'Copyright (C) 2018 Sam Freeside'
 __credits__   = ['@ippsec', '@0xdf']
-__license__   = 'GPL-3.0'
 __date__      = '2018-09-08'
 __site__      = 'https://github.com/snovvcrash/FwdSh3ll'
 __brief__     = 'Forward shell generation framework.'
