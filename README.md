@@ -6,9 +6,9 @@ FwdSh3ll
 [![license.svg](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/snovvcrash/FwdSh3ll/master/LICENSE)
 [![built-with-love.svg](https://img.shields.io/badge/built%20with-%F0%9F%92%97%F0%9F%92%97%F0%9F%92%97-lightgrey.svg)](https://emojipedia.org/growing-heart)
 
-**FwdSh3ll** is a tiny PoC web-payload oriented exploitation framework for crafting *forward shells* with Metasploit-like usage experience.
+**FwdSh3ll** is a tiny PoC exploitation framework for crafting *forward shells* with Metasploit-like usage experience.
 
-What is a forward shell? Have you ever been caught in a situation when looking for an approach to a CTF machine, you discover an RCE vulnerability in a web app but despite that you can't get a reverse shell no matter how hard you try due to strictly filtered outbound traffic? A forward shell is a scheme of shell interaction with a vulnerable Linux machine based on the named pipes mechanism. Check the [description](#description) for details.
+What is a forward shell? Have you ever been caught in a situation when looking for an approach to a CTF machine, you discover an RCE vulnerability in a web app but despite that you can't get a reverse shell due to strictly filtered outbound traffic? A forward shell is a concept of shell interaction with a vulnerable Linux machine based on the named pipes mechanism. Check the [description](#description) for details.
 
 This tool does not claim to provide a universal way out of any traffic lock case out-of-the-box. Each pentest episode involes basic enumeration first, whose results may require minor code adjustment.
 
@@ -51,7 +51,7 @@ Showcase
 Description
 ==========
 
-This method of getting a shell is described in a couple of IppSec's videos: [Sokar](https://youtu.be/k6ri-LFWEj4?t=15m35s "VulnHub - Sokar - YouTube") (VulnHub) and [Stratosphere](https://youtu.be/uMwcJQcUnmY?t=21m10s "HackTheBox - Stratosphere - YouTube") (HTB). The main idea here is to create a named pipe with `mkfifo` command and `tail -f` its input to a `/bin/sh` process. The output would go into a regular text file which could be simply `cat`'ted. What is also very cool is that you can move around with your current directory saved (i.e., persistent shell) as well as spawn other PTYs. Here is how it looks like:
+This method of getting a shell is described in a couple of IppSec's videos: [Sokar](https://youtu.be/k6ri-LFWEj4?t=15m35s) (VulnHub) and [Stratosphere](https://youtu.be/uMwcJQcUnmY?t=21m10s) (HTB). The main idea here is to create a named pipe with `mkfifo` command and `tail -f` its input to a `/bin/sh` process. The output would go into a regular text file which you can simply `cat`. What is also very cool is that you can move around with your current directory saved (i.e., persistent shell) as well as spawn other PTYs. Here is how it looks like:
 
 ![pipes.png](https://user-images.githubusercontent.com/23141800/45626338-f4853a00-ba97-11e8-8f1a-962b4f32a36b.png)
 
@@ -66,8 +66,8 @@ Dependencies
 
 FwdSh3ll makes use of the following external modules:
 
-* [requests](http://docs.python-requests.org/en/master "Requests: HTTP for Humans — Requests 2.19.1 documentation")
-* [termcolor](https://pypi.python.org/pypi/termcolor "termcolor 1.1.0 : Python Package Index")
+* [requests](http://docs.python-requests.org/en/master)
+* [termcolor](https://pypi.python.org/pypi/termcolor)
 
 To resolve all Python dependencies create a virtual environment and run `pip` from within:
 
@@ -123,18 +123,18 @@ To successfully spawn the forward shell the following stuff should be reachable 
 Payloads
 ==========
 
-List of RCE vulnerabilities for which payloads are available (will be expanding):
+List of RCE vulnerabilities for which payloads are available:
 
-* `ApacheStruts.py` — Apache Struts 2.3.5 < 2.3.31 / 2.5 < 2.5.10 RCE — [CVE-2017-5638](https://nvd.nist.gov/vuln/detail/CVE-2017-5638 "NVD - CVE-2017-5638") ([exploit-db](https://www.exploit-db.com/exploits/41570 "Apache Struts 2.3.5 < 2.3.31 / 2.5 < 2.5.10 - Remote Code Execution"))
-* `NodejsExpress.py` — Node.js deserialization bug for RCE — [CVE-2017-5941](https://nvd.nist.gov/vuln/detail/CVE-2017-5941 "NVD - CVE-2017-5941") ([exploit-db](https://www.exploit-db.com/docs/english/41289-exploiting-node.js-deserialization-bug-for-remote-code-execution.pdf "Exploiting Node.js deserialization bug for Remote Code Execution (CVE-2017-5941)"))
-* `ShellShock.py` — Bash code injection RCE — [CVE-2014-6271](https://nvd.nist.gov/vuln/detail/CVE-2014-6271 "NVD - CVE-2014-6271")
+* `ApacheStruts.py` — Apache Struts 2.3.5 < 2.3.31 / 2.5 < 2.5.10 RCE — [CVE-2017-5638](https://nvd.nist.gov/vuln/detail/CVE-2017-5638), [ExploitDB](https://www.exploit-db.com/exploits/41570)
+* `NodejsExpress.py` — Node.js deserialization bug for RCE — [CVE-2017-5941](https://nvd.nist.gov/vuln/detail/CVE-2017-5941), [ExploitDB](https://www.exploit-db.com/docs/english/41289-exploiting-node.js-deserialization-bug-for-remote-code-execution.pdf)
+* `ShellShock.py` — Bash code injection RCE — [CVE-2014-6271](https://nvd.nist.gov/vuln/detail/CVE-2014-6271)
 * `WebShell.py` — Just a web shell
 
 Known Issues
 ==========
 
 * If you get the `connection timeout` error when initializing the forward shell, just rerun the script.
-* Some Linux distributions does not support the `/dev/shm` path (shared memory, availability depends on kernel config), so if something goes wrong, try changing it to `/tmp` with `-pp` switch.
+* Some Linux distributions does not support the `/dev/shm` path (shared memory, availability depends on the kernel config), so if something goes wrong, try changing it to `/tmp` with `-pp` switch.
 * When setting the named pipes, the `>& file.output` syntax for combinig *stdout* and *stderr* should be supported by both `bash/zsh` and `(t)csh`, but it's not a Bash preferable way though. So there could be issues with the redirection syntax for various shells. Keep that in mind.
 
 Credits & References
@@ -147,4 +147,4 @@ Credits & References
 Kudos
 ==========
 
-Kudos to [IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA "IppSec - YouTube") and [0xdf](https://www.hackthebox.eu/profile/4935 "Hack The Box :: 0xdf:: Member Profile") for sharing the forward shell concept.
+Kudos to [@IppSec](https://twitter.com/ippsec) and [@0xdf](https://twitter.com/0xdf_) for sharing the forward shell concept.
